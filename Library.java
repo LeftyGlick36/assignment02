@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 /**
@@ -15,7 +16,9 @@ public class Library {
 	private ArrayList<LibraryBook> library;
 
 	public Library() {
+		// TODO Auto-generated constructor stub
 		library = new ArrayList<LibraryBook>();
+
 	}
 
 	/**
@@ -102,8 +105,15 @@ public class Library {
 	 *            -- ISBN of the book to be looked up
 	 */
 	public String lookup(long isbn) {
-		// FILL IN -- do not return null unless appropriate
+		// For every book in the library if the ISBN # matches the current isbn
+		// return the holders name otherwise return null
+		for (LibraryBook libraryBook : this.library) {
+			if (libraryBook.getIsbn() == isbn) {
+				return libraryBook.getHolder();
+			}
+		}
 		return null;
+
 	}
 
 	/**
@@ -115,8 +125,14 @@ public class Library {
 	 *            -- holder whose checked out books are returned
 	 */
 	public ArrayList<LibraryBook> lookup(String holder) {
-		// FILL IN -- do not return null
-		return null;
+		ArrayList<LibraryBook> booksOut = new ArrayList<>();
+
+		for (LibraryBook libraryBook : this.library) {
+			if (libraryBook.getHolder() == holder) {
+				booksOut.add(libraryBook);
+			}
+		}
+		return booksOut;
 	}
 
 	/**
@@ -142,7 +158,17 @@ public class Library {
 	 * 
 	 */
 	public boolean checkout(long isbn, String holder, int month, int day, int year) {
-		// FILL IN -- do not return false unless appropriate
+		for (LibraryBook libraryBook : this.library) {
+			if (libraryBook.getIsbn() == (isbn)) {
+				if (libraryBook.getHolder() == null) {
+					libraryBook.checkOut(holder, new GregorianCalendar());
+					return true;
+				} else {
+					return false;
+				}
+			}
+		}
+
 		return false;
 	}
 
@@ -159,7 +185,18 @@ public class Library {
 	 *            -- ISBN of the library book to be checked in
 	 */
 	public boolean checkin(long isbn) {
-		// FILL IN -- do not return false unless appropriate
+		for (LibraryBook libraryBook : this.library) {
+			if (libraryBook.getIsbn() == (isbn)) {
+				if (libraryBook.getHolder() == null) {
+
+					return false;
+				} else {
+
+					libraryBook.checkIn();
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 
@@ -175,7 +212,15 @@ public class Library {
 	 *            -- holder of the library books to be checked in
 	 */
 	public boolean checkin(String holder) {
-		// FILL IN -- do not return false unless appropriate
+
+		for (LibraryBook libraryBook : library) {
+			if (libraryBook.getHolder() == holder) {
+				libraryBook.checkIn();
+				return true;
+			} else {
+				return false;
+			}
+		}
 		return false;
 	}
 }

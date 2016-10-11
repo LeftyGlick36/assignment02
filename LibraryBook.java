@@ -15,8 +15,13 @@ import java.util.GregorianCalendar;
  * 
  * public LibraryBook(long isbn, String author, String title)
  * 
- * public String getHolder() public GregorianCalendar getDueDate() Methods for
- * checking a book in and out.
+ * public String getHolder()
+ * 
+ * public GregorianCalendar
+ * 
+ * getDueDate()
+ * 
+ * Methods for checking a book in and out.
  * 
  * Do not override the equals method in Book.
  * 
@@ -25,40 +30,36 @@ import java.util.GregorianCalendar;
  */
 public class LibraryBook extends Book {
 
+	// If a library book is checked in, its holder and due date should be set to
+	// null
 	private String holderName = null;
 	private GregorianCalendar dueDate = null;
 
-	/**
-	 * 
-	 * @param isbn
-	 * @param author
-	 * @param title
-	 */
 	public LibraryBook(long isbn, String author, String title) {
 		super(isbn, author, title);
 	}
 
 	/**
-	 * Returns the holder of the LibraryBook
-	 * 
-	 * @return
+	 * Gets the holder of the library book
 	 */
 	public String getHolder() {
 		return this.holderName;
+
 	}
 
 	/**
-	 * Returns The dueDate from the LibraryBook
+	 * Gets the due date of the library book
 	 * 
 	 * @return
 	 */
 	public GregorianCalendar getDueDate() {
 		return this.dueDate;
+
 	}
 
 	/**
-	 * Initializes the holderName and dueDate to Null when the book is checked
-	 * in
+	 * If a library book is checked in, its holder and due date should be set to
+	 * null.
 	 */
 	public void checkIn() {
 		this.holderName = null;
@@ -66,13 +67,15 @@ public class LibraryBook extends Book {
 	}
 
 	/**
-	 * Initializes a holderName and dueDate to a libraryBook when it is checkedOut
+	 * If this book is checked out declare the holder of this book to the
+	 * current holder and construct a due Date
+	 * 
 	 * @param holder
 	 * @param dueDate
 	 */
 	public void checkOut(String holder, GregorianCalendar dueDate) {
-		this.holderName = holder;
-		this.dueDate = dueDate;
+		this.holderName = getHolder();
+		this.dueDate = getDueDate();
 	}
 
 }

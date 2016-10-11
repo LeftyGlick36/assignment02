@@ -1,181 +1,64 @@
 package assignment02;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.Scanner;
-import genericbooks.*;
 
 /**
- * Class representation of a library (a collection of library books).
- * @param <T>
+ * For the most part, modification will involve replacing the String type for
+ * the library book's holder in your original class to Type in the new class.
+ * (Be careful. It is not correct to replace every occurrence of String with
+ * Type.)
  * 
+ * @author mosesmanning
+ *
  */
 public class LibraryBookGeneric<Type> extends Book {
-	private Type holder = null;
-	private GregorianCalendar dueDate = null;
 
-	@SuppressWarnings("hiding")
-	public <Type> LibraryBookGeneric(long isbn, String author, String title) {
+	public LibraryBookGeneric(long isbn, String author, String title) {
 		super(isbn, author, title);
 	}
 
+	// If a library book is checked in, its holder and due date should be set to
+	// null
+	private Type holderName = null;
+	private GregorianCalendar dueDate = null;
+
 	/**
-	 * Add the specified book to the library, assume no duplicates.
-	 * 
-	 * @param isbn
-	 *            -- ISBN of the book to be added
-	 * @param author
-	 *            -- author of the book to be added
-	 * @param title
-	 *            -- title of the book to be added
+	 * Gets the holder of the library book
 	 */
-	public void add(long isbn, String author, String title) {
-		add(isbn, author, title);
+	public Type getHolder() {
+		return this.holderName;
+
 	}
 
 	/**
-	 * Add the list of library books to the library, assume no duplicates.
+	 * Gets the due date of the library book
 	 * 
-	 * @param list
-	 *            -- list of library books to be added
+	 * @return
 	 */
-	public void addAll(ArrayList<Type> list) {
-		ArrayList<Type> library;
-		library.addAll(list);
+	public GregorianCalendar getDueDate() {
+		return this.dueDate;
+
 	}
 
 	/**
-	 * Add books specified by the input file. One book per line with ISBN,
-	 * author, and title separated by tabs.
-	 * 
-	 * If file does not exist or format is violated, do nothing.
-	 * 
-	 * @param filename
+	 * If a library book is checked in, its holder and due date should be set to
+	 * null.
 	 */
-	public void addAll(String filename) {
-		ArrayList<Type> toBeAdded = new ArrayList<Type>();
-
-		try (Scanner fileIn = new Scanner(new File(filename))) {
-
-			int lineNum = 1;
-
-			while (fileIn.hasNextLine()) {
-				String line = fileIn.nextLine();
-
-				try (Scanner lineIn = new Scanner(line)) {
-					lineIn.useDelimiter("\\t");
-
-					if (!lineIn.hasNextLong()) {
-						throw new ParseException("ISBN", lineNum);
-					}
-					long isbn = lineIn.nextLong();
-
-					if (!lineIn.hasNext()) {
-						throw new ParseException("Author", lineNum);
-					}
-					String author = lineIn.next();
-
-					if (!lineIn.hasNext()) {
-						throw new ParseException("Title", lineNum);
-					}
-					String title = lineIn.next();
-					toBeAdded.add(new LibraryBook(isbn, author, title));
-				}
-				lineNum++;
-			}
-		} catch (FileNotFoundException e) {
-			System.err.println(e.getMessage() + " Nothing added to the library.");
-			return;
-		} catch (ParseException e) {
-			System.err.println(e.getLocalizedMessage() + " formatted incorrectly at line " + e.getErrorOffset()
-					+ ". Nothing added to the library.");
-			return;
-		}
-
-		library.addAll(toBeAdded);
+	public void checkIn() {
+		this.holderName = null;
+		this.dueDate = null;
 	}
 
 	/**
-	 * Returns the holder of the library book with the specified ISBN.
-	 * 
-	 * If no book with the specified ISBN is in the library, returns null.
-	 * 
-	 * @param isbn
-	 *            -- ISBN of the book to be looked up
-	 */
-	public String lookup(long isbn) {
-		return null;
-	}
-
-	/**
-	 * Returns the list of library books checked out to the specified holder.
-	 * 
-	 * If the specified holder has no books checked out, returns an empty list.
+	 * If this book is checked out declare the holder of this book to the
+	 * current holder and construct a due Date
 	 * 
 	 * @param holder
-	 *            -- holder whose checked out books are returned
+	 * @param dueDate
 	 */
-	public ArrayList<Type> lookup(String holder) {
-		return null;
+	public void checkOut(Type holder, GregorianCalendar dueDate) {
+		this.holderName = getHolder();
+		this.dueDate = getDueDate();
 	}
 
-	/**
-	 * Sets the holder and due date of the library book with the specified ISBN.
-	 * 
-	 * If no book with the specified ISBN is in the library, returns false.
-	 * 
-	 * If the book with the specified ISBN is already checked out, returns
-	 * false.
-	 * 
-	 * Otherwise, returns true.
-	 * 
-	 * @param isbn
-	 *            -- ISBN of the library book to be checked out
-	 * @param holder
-	 *            -- new holder of the library book
-	 * @param month
-	 *            -- month of the new due date of the library book
-	 * @param day
-	 *            -- day of the new due date of the library book
-	 * @param year
-	 *            -- year of the new due date of the library book
-	 * 
-	 */
-	public boolean checkout(long isbn, String holder, int month, int day, int year) {
-		return false;
-	}
-
-	/**
-	 * Unsets the holder and due date of the library book.
-	 * 
-	 * If no book with the specified ISBN is in the library, returns false.
-	 * 
-	 * If the book with the specified ISBN is already checked in, returns false.
-	 * 
-	 * Otherwise, returns true.
-	 * 
-	 * @param isbn
-	 *            -- ISBN of the library book to be checked in
-	 */
-	public boolean checkin(long isbn) {
-		return false;
-	}
-
-	/**
-	 * Unsets the holder and due date for all library books checked out be the
-	 * specified holder.
-	 * 
-	 * If no books with the specified holder are in the library, returns false;
-	 * 
-	 * Otherwise, returns true.
-	 * 
-	 * @param holder
-	 *            -- holder of the library books to be checked in
-	 */
-	public boolean checkin(String holder) {
-		return false;
-	}
 }
