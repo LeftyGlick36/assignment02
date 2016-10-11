@@ -35,6 +35,7 @@ public class PhoneNumber {
 		}
 	}
 
+	@Override
 	public boolean equals(Object other) {
 		if (!(other instanceof PhoneNumber))
 			return false;
@@ -45,6 +46,7 @@ public class PhoneNumber {
 		return lhs.areaCode.equals(rhs.areaCode) && lhs.trunk.equals(rhs.trunk) && lhs.rest.equals(rhs.rest);
 	}
 
+	@Override
 	public String toString() {
 		return "(" + areaCode + ") " + trunk + "-" + rest;
 	}

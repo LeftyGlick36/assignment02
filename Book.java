@@ -50,6 +50,7 @@ public class Book {
 	 *            -- the object begin compared with "this"
 	 * @return true if "other" is a Book and is equal to "this", false otherwise
 	 */
+	@Override
 	public boolean equals(Object other) {
 
 		// If other is not a book return false
@@ -72,6 +73,7 @@ public class Book {
 	/**
 	 * Returns a string representation of the book.
 	 */
+	@Override
 	public String toString() {
 		return isbn + ", " + author + ", \"" + title + "\"";
 	}

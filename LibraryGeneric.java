@@ -299,6 +299,7 @@ public class LibraryGeneric<Type> {
 		 * 
 		 * value if lhs is larger than rhs. Returns 0 if lhs and rhs are equal.
 		 */
+		@Override
 		public int compare(LibraryBookGeneric<Type> lhs, LibraryBookGeneric<Type> rhs) {
 			return (int) (lhs.getIsbn() - rhs.getIsbn());
 		}
