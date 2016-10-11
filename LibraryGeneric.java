@@ -9,7 +9,9 @@ import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 /**
- * Class representation of a library (collection of books)
+ * Make a copy of your Library class and modify it to make the list of library
+ * books a list of generic library books. The header for your new class should
+ * be the following
  * 
  * @param <Type>
  */
@@ -234,7 +236,7 @@ public class LibraryGeneric<Type> {
 
 	/** * Returns the list of library books, sorted by author */
 	public ArrayList<LibraryBookGeneric<Type>> getOrderedByAuthor() {
-		
+
 		ArrayList<LibraryBookGeneric<Type>> libraryCopy = new ArrayList<LibraryBookGeneric<Type>>();
 		libraryCopy.addAll(library);
 
@@ -252,7 +254,7 @@ public class LibraryGeneric<Type> {
 	 * library books are overdue, returns an empty list.
 	 */
 	public ArrayList<LibraryBookGeneric<Type>> getOverdueList(int month, int day, int year) {
-		
+
 		ArrayList<LibraryBookGeneric<Type>> libraryCopy = new ArrayList<LibraryBookGeneric<Type>>();
 		GregorianCalendar currentDate = new GregorianCalendar(year, month, day);
 		for (LibraryBookGeneric<Type> book : this.library) {
